@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enes Sayar | Teknoloji Meraklısı & Geliştirici</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0d0d0d; --bg-card: #161616; --bg-elevated: #1a1a1a;
+            --border: #1f1f1f; --border-hover: #2e2e2e; --border-light: #252525;
+            --text: #b0b0b0; --text-bright: #d4d4d4; --text-muted: #666;
+            --text-dim: #555; --accent: #444; --nav-bg: rgba(13,13,13,0.85);
+        }
+        html.light {
+            --bg: #f5f5f5; --bg-card: #ffffff; --bg-elevated: #eeeeee;
+            --border: #e0e0e0; --border-hover: #ccc; --border-light: #ddd;
+            --text: #555; --text-bright: #222; --text-muted: #999;
+            --text-dim: #aaa; --accent: #bbb; --nav-bg: rgba(245,245,245,0.85);
+        }
+        html.light .card { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        html.light .skill-tag { background: #f0f0f0; color: #666; border-color: #ddd; }
+        html.light .skill-tag::after { background:#fff; border-color:#ddd; }
+        html.light .skill-tag:hover { border-color: #bbb; color: #333; }
+        html.light .btn:hover { background: #e8e8e8; border-color: #ccc; }
+        html.light ::-webkit-scrollbar-track { background: #f5f5f5; }
+        html.light ::-webkit-scrollbar-thumb { background: #ccc; }
+        html.light .icon-box:hover { background: #e8e8e8; border-color: #ccc; }
+        html.light .icon-box::after { background:#fff; border-color:#ddd; }
+        html.light .nav-link::after { background: #aaa; }
+        html.light .mobile-menu { background: rgba(245,245,245,0.98) !important; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            overflow-x: hidden; min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        html[dir="rtl"] body { direction: rtl; }
+        section, footer, nav { background: var(--bg); transition: background 0.3s ease; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.3s ease, background 0.3s ease; overflow:visible; }
+        .card:hover { border-color: var(--border-hover); }
+        .text-bright { color: var(--text-bright); }
+        .typing-cursor { display: inline-block; width: 2px; margin-left: 2px; animation: blink 1s infinite; }
+        @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+        .fade-in { opacity: 0; transform: translateY(16px); transition: all 0.5s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .nav-link { position: relative; }
+        .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--text-dim); transition:width 0.3s ease; }
+        .nav-link:hover::after { width:100%; }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:var(--bg); }
+        ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+        .mobile-menu { transform:translateX(100%); transition:transform 0.3s ease; }
+        .mobile-menu.open { transform:translateX(0); }
+        .icon-box { transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s ease; position:relative; }
+        .icon-box:hover { border-color:var(--border-hover); background:var(--bg-elevated); transform:translateY(-3px) scale(1.08); box-shadow:0 6px 20px rgba(0,0,0,0.25); }
+        .icon-box::after { content:attr(data-level); position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-4px); background:var(--bg-card); border:1px solid var(--border-hover); border-radius:6px; padding:3px 8px; font-size:10px; color:var(--text-muted); white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.3s ease, transform 0.3s ease; z-index:10; }
+        .icon-box:hover::after { opacity:1; transform:translateX(-50%) translateY(0); }
+        .icon-box.level-ust::after { color:#4ade80; border-color:#4ade8040; }
+        .icon-box.level-orta::after { color:#facc15; border-color:#facc1540; }
+        .icon-box.level-baslangic::after { color:#f87171; border-color:#f8717140; }
+        .divider { height:1px; background:var(--border); max-width:72rem; margin:0 auto; }
+        .btn { transition:background 0.2s ease, border-color 0.2s ease; }
+        .btn:hover { background:var(--bg-elevated); border-color:var(--accent); }
+        .skill-tag { transition:border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; position:relative; cursor:default; }
+        .skill-tag:hover { border-color:var(--border-hover); color:var(--text-bright); transform:scale(1.12); box-shadow:0 4px 16px rgba(0,0,0,0.3); }
+        .skill-tag::after { content:attr(data-level); position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-4px); background:var(--bg-card); border:1px solid var(--border-hover); border-radius:6px; padding:3px 8px; font-size:10px; color:var(--text-muted); white-space:nowrap; opacity:0; pointer-events:none; transition:opacity 0.3s ease, transform 0.3s ease; z-index:10; }
+        .skill-tag:hover::after { opacity:1; transform:translateX(-50%) translateY(0); }
+        .skill-tag.level-ust::after { color:#4ade80; border-color:#4ade8040; }
+        .skill-tag.level-orta::after { color:#facc15; border-color:#facc1540; }
+        .skill-tag.level-baslangic::after { color:#f87171; border-color:#f8717140; }
+        .desktop-img { cursor:zoom-in; transition:border-color 0.3s ease, transform 0.3s ease; }
+        .desktop-img:hover { border-color:var(--border-hover) !important; transform:scale(1.01); }
+        .lightbox-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s ease; cursor:zoom-out; }
+        .lightbox-overlay.active { opacity:1; pointer-events:auto; }
+        .lightbox-overlay img { max-width:90vw; max-height:85vh; border-radius:8px; border:1px solid #2a2a2a; box-shadow:0 20px 60px rgba(0,0,0,0.6); transform:scale(0.92); transition:transform 0.3s ease; }
+        .lightbox-overlay.active img { transform:scale(1); }
+        .lightbox-close { position:absolute; top:20px; right:24px; color:#666; font-size:28px; cursor:pointer; transition:color 0.2s ease; }
+        .lightbox-close:hover { color:#ccc; }
+        html.light .lightbox-overlay { background:rgba(255,255,255,0.92); }
+        html.light .lightbox-overlay img { border-color:#ddd; box-shadow:0 20px 60px rgba(0,0,0,0.15); }
+        .theme-toggle { width:38px; height:38px; border-radius:10px; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; font-size:15px; }
+        .theme-toggle:hover { border-color:var(--border-hover); color:var(--text-bright); background:var(--bg-card); }
+        html:not(.light) .theme-toggle .icon-sun { display:none; }
+        html.light .theme-toggle .icon-moon { display:none; }
+        .back-to-top { position:fixed; bottom:28px; right:28px; z-index:50; width:44px; height:44px; border-radius:12px; background:var(--bg-card); border:1px solid var(--border); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transform:translateY(12px); transition:all 0.3s ease; font-size:16px; backdrop-filter:blur(8px); }
+        .back-to-top.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+        .back-to-top:hover { border-color:var(--border-hover); color:var(--text-bright); background:var(--bg-elevated); }
+        .gh-calendar { border-radius:10px; overflow:hidden; }
+        .gh-calendar svg { width:100%; height:auto; display:block; }
+
+        /* Scroll Progress */
+        #scroll-progress { position:fixed; top:0; left:0; height:2px; z-index:100; background:linear-gradient(90deg,#4ade80,#22d3ee); transition:width 0.1s linear; width:0%; }
+
+        /* Language Dropdown */
+        .lang-dropdown { position:relative; }
+        .lang-btn { width:38px; height:38px; border-radius:10px; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; font-size:13px; font-family:'Inter',sans-serif; }
+        .lang-btn:hover { border-color:var(--border-hover); color:var(--text-bright); background:var(--bg-card); }
+        .lang-menu { position:absolute; top:calc(100% + 6px); right:0; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:6px; min-width:140px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:all 0.2s ease; z-index:100; }
+        html[dir="rtl"] .lang-menu { right:auto; left:0; }
+        .lang-menu.open { opacity:1; pointer-events:auto; transform:translateY(0); }
+        .lang-option { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:6px; cursor:pointer; transition:background 0.15s ease; color:var(--text); font-size:13px; }
+        .lang-option:hover { background:var(--bg-elevated); }
+        .lang-option.active { background:var(--bg-elevated); color:var(--text-bright); }
+        .lang-option .flag { font-size:16px; }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#hero" class="text-lg font-semibold text-bright tracking-tight font-mono">&lt;ES /&gt;</a>
+            <div class="hidden md:flex items-center gap-7">
+                <a href="#hero" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors" data-i18n="nav_home">Ana Sayfa</a>
+                <a href="#yetenekler" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors" data-i18n="nav_skills">Yetenekler</a>
+                <a href="#projeler" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors" data-i18n="nav_projects">Projeler</a>
+                <a href="#github" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors">GitHub</a>
+                <a href="#masaustu" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors" data-i18n="nav_desktop">Masaüstü</a>
+                <a href="#iletisim" class="nav-link text-sm text-gray-500 hover:text-gray-300 transition-colors" data-i18n="nav_contact">İletişim</a>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="lang-dropdown">
+                    <button id="lang-btn" class="lang-btn"><i class="fas fa-globe"></i></button>
+                    <div id="lang-menu" class="lang-menu">
+                        <div class="lang-option active" data-lang="tr"><span class="flag">&#127481;&#127479;</span> Türkçe</div>
+                        <div class="lang-option" data-lang="en"><span class="flag">&#127468;&#127463;</span> English</div>
+                        <div class="lang-option" data-lang="ar"><span class="flag">&#127480;&#127462;</span> العربية</div>
+                        <div class="lang-option" data-lang="es"><span class="flag">&#127466;&#127480;</span> Español</div>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Tema Değiştir">
+                    <i class="fas fa-sun icon-sun"></i>
+                    <i class="fas fa-moon icon-moon"></i>
+                </button>
+                <button id="mobile-toggle" class="md:hidden text-gray-500 hover:text-gray-300 transition-colors">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-[#0d0d0d]/98 backdrop-blur-sm flex flex-col items-center justify-center gap-8">
+        <button id="mobile-close" class="absolute top-5 right-6 text-gray-500 hover:text-gray-300"><i class="fas fa-times text-xl"></i></button>
+        <a href="#hero" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors" data-i18n="nav_home">Ana Sayfa</a>
+        <a href="#yetenekler" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors" data-i18n="nav_skills">Yetenekler</a>
+        <a href="#projeler" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors" data-i18n="nav_projects">Projeler</a>
+        <a href="#github" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors">GitHub</a>
+        <a href="#masaustu" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors" data-i18n="nav_desktop">Masaüstü</a>
+        <a href="#iletisim" class="mobile-link text-xl text-gray-400 hover:text-gray-200 transition-colors" data-i18n="nav_contact">İletişim</a>
+    </div>
+
+    <!-- Hero -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center">
+        <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+            <div class="fade-in">
+                <p class="text-xs text-gray-600 font-mono mb-5 tracking-widest uppercase" data-i18n="hero_hello">Merhaba, ben</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-5 leading-tight text-bright">Enes Sayar</h1>
+                <div class="h-10 flex items-center justify-center mb-8">
+                    <span class="text-base text-gray-500 font-mono">&gt;&nbsp;</span>
+                    <span id="typing-text" class="text-base text-gray-400 font-mono"></span>
+                    <span class="typing-cursor text-gray-500 text-base">|</span>
+                </div>
+                <p class="text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed text-sm" data-i18n="hero_desc">Teknolojiye, açık kaynak dünyasına, sistem yapılandırmalarına ve yeni nesil yazılımlara tutkuyla bağlı biriyim. Yeni teknolojileri keşfetmeyi, projeler üretmeyi ve dijital dünyada çözümler geliştirmeyi seviyorum.</p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a href="#projeler" class="btn px-7 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm hover:text-gray-200">
+                        <i class="fas fa-rocket mr-2 text-xs"></i><span data-i18n="hero_btn1">Projelerime Göz At</span>
+                    </a>
+                    <a href="#iletisim" class="btn px-7 py-3 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm hover:text-gray-200">
+                        <i class="fas fa-paper-plane mr-2 text-xs"></i><span data-i18n="hero_btn2">İletişime Geç</span>
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce"><i class="fas fa-chevron-down text-gray-700 text-xs"></i></div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Yetenekler -->
+    <section id="yetenekler" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 fade-in">
+                <p class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3" data-i18n="skills_tag">&lt;Yetenekler /&gt;</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-bright mb-3" data-i18n="skills_title">Yeteneklerim & İlgi Alanlarım</h2>
+                <p class="text-gray-500 max-w-md mx-auto text-sm" data-i18n="skills_desc">Teknolojinin farklı dallarında edindiğim deneyimler</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="card p-7 fade-in">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center flex-shrink-0"><i class="fab fa-linux text-[#f5c211] text-lg"></i></div>
+                        <div>
+                            <h3 class="text-base font-semibold text-bright mb-1.5" data-i18n="skill_os_title">İşletim Sistemleri & Sistem</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-3" data-i18n="skill_os_desc">GNU/Linux yapılandırmaları ve sunucu yönetimi üzerine yoğunlaşıyorum.</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="skill-tag level-usta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Usta">GNU/Linux</span>
+                                <span class="skill-tag level-usta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Usta">Shell</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-5 border-t border-[var(--border)]">
+                        <div class="flex items-center justify-center gap-10">
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-usta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Usta"><i class="fab fa-linux text-2xl text-[#f5c211]"></i></div><span class="text-xs text-gray-600">GNU/Linux</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-7 fade-in" style="transition-delay:0.1s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center flex-shrink-0"><i class="fas fa-code text-gray-400 text-lg"></i></div>
+                        <div>
+                            <h3 class="text-base font-semibold text-bright mb-1.5" data-i18n="skill_dev_title">Geliştirme & Web</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-3" data-i18n="skill_dev_desc">Modern web teknolojileri ve programlama dilleriyle projeler üretiyorum.</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">HTML5</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">CSS3</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">JavaScript</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">C++</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-5 border-t border-[var(--border)]">
+                        <div class="flex items-center justify-center gap-6">
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-html5-plain text-2xl text-[#e44d26]"></i></div><span class="text-xs text-gray-600">HTML5</span></div>
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-css3-plain text-2xl text-[#264de4]"></i></div><span class="text-xs text-gray-600">CSS3</span></div>
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-javascript-plain text-2xl text-[#f0db4f]"></i></div><span class="text-xs text-gray-600">JavaScript</span></div>
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-cplusplus-plain text-2xl text-[#00599C]"></i></div><span class="text-xs text-gray-600">C++</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-7 fade-in" style="transition-delay:0.2s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center flex-shrink-0"><i class="fas fa-microchip text-gray-400 text-lg"></i></div>
+                        <div>
+                            <h3 class="text-base font-semibold text-bright mb-1.5" data-i18n="skill_iot_title">Donanım & IoT</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-3" data-i18n="skill_iot_desc">Microcontroller projeleri ile ESP32, Arduino ve Raspberry Pi üzerinde uygulamalar geliştiriyorum.</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">ESP32</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Arduino</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Raspberry Pi</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-5 border-t border-[var(--border)]">
+                        <div class="flex items-center justify-center gap-10">
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-arduino-plain text-2xl text-[#00979d]"></i></div><span class="text-xs text-gray-600">Arduino</span></div>
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="devicon-raspberrypi-line text-2xl text-[#c51a4a]"></i></div><span class="text-xs text-gray-600">Raspberry Pi</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-7 fade-in" style="transition-delay:0.3s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center flex-shrink-0"><i class="fas fa-shield-halved text-gray-400 text-lg"></i></div>
+                        <div>
+                            <h3 class="text-base font-semibold text-bright mb-1.5" data-i18n="skill_net_title">Ağ & Güvenlik</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-3" data-i18n="skill_net_desc">Temel ağ analizi, güvenlik araçları ve DNS sistemleri konularında bilgi sahibiyim.</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta" data-i18n="tag_net">Ağ Analizi</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta" data-i18n="tag_sec">Güvenlik</span>
+                                <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">DNS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 pt-5 border-t border-[var(--border)]">
+                        <div class="flex items-center justify-center gap-10">
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="fas fa-network-wired text-2xl text-[#e0a526]"></i></div><span class="text-xs text-gray-600" data-i18n="short_net">Ağ</span></div>
+                            <div class="flex flex-col items-center gap-2"><div class="icon-box level-orta w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center cursor-default" data-level="Orta"><i class="fas fa-lock text-2xl text-[#e05555]"></i></div><span class="text-xs text-gray-600" data-i18n="short_sec">Güvenlik</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Projeler -->
+    <section id="projeler" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 fade-in">
+                <p class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3" data-i18n="proj_tag">&lt;Projeler /&gt;</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-bright mb-3" data-i18n="proj_title">Projelerim</h2>
+                <p class="text-gray-500 max-w-md mx-auto text-sm" data-i18n="proj_desc">Geliştirdiğim ve üzerinde çalıştığım açık kaynak projeler</p>
+            </div>
+            <div class="card p-8 fade-in">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center"><i class="fas fa-wifi text-[#4ade80] text-sm"></i></div>
+                    <h3 class="text-lg font-bold text-bright">ESP32-W-F-SCAN</h3>
+                    <span id="star-count" class="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[var(--bg-elevated)] border border-[var(--border-light)]"><i class="fas fa-star text-[#e0a526] text-xs"></i><span class="text-xs text-gray-500">-</span></span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed mb-5" data-i18n="proj_desc1">ESP32 tabanlı kablosuz ağ tarayıcı. 0.96" OLED ekran üzerinde WiFi ağlarını tarar, sinyal gücünü gösterir. BOOT butonu ile tek tuşla menü navigasyonu, otomatik ivmelenmeli scroll ve captive portal desteği sunar.</p>
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">ESP32</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">C++</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">WiFi Scanner</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">OLED SSD1306</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Captive Portal</span>
+                </div>
+                <a href="https://github.com/Elyntr47/ESP32-W-F-SCAN" target="_blank" rel="noopener noreferrer" class="btn inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm">
+                    <i class="fab fa-github"></i><span data-i18n="proj_github">GitHub'da İncele</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <div class="card p-8 fade-in mt-5" style="transition-delay:0.1s">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center"><i class="fab fa-linux text-[#f5c211] text-sm"></i></div>
+                    <h3 class="text-lg font-bold text-bright">CachyOS Post-Install Guide</h3>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed mb-5" data-i18n="proj_desc2">CachyOS kurulumundan sonra yapılması gereken temel ayarlar ve optimizasyonlar. AUR, Flathub, Zapret, Fastfetch ve gaming kurulumları için adım adım rehber.</p>
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">CachyOS</span>
+                    <span class="skill-tag level-usta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Usta">Arch Linux</span>
+                    <span class="skill-tag level-usta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Usta">Shell</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Gaming</span>
+                </div>
+                <a href="https://cachyos.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm">
+                    <i class="fas fa-book"></i><span data-i18n="proj_guide">Rehberi İncele</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <div class="card p-8 fade-in mt-5" style="transition-delay:0.2s">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center"><i class="fas fa-terminal text-[#4ade80] text-sm"></i></div>
+                    <h3 class="text-lg font-bold text-bright">My-Fastfetch</h3>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed mb-5" data-i18n="proj_desc3">CachyOS için özel olarak tasarlanmış fastfetch yapılandırması. Renkli logo, özelleştirilmiş düzen ve terminalde şık sistem bilgisi gösterimi. Tek dosya ile kurulabilir.</p>
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Fastfetch</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">CachyOS</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">JSON</span>
+                    <span class="skill-tag level-orta px-2.5 py-0.5 text-xs rounded bg-[var(--bg-elevated)] text-gray-400 border border-[var(--border-light)]" data-level="Orta">Ricing</span>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://github.com/Elyntr47/My-fastfetch" target="_blank" rel="noopener noreferrer" class="btn inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm">
+                        <i class="fab fa-github"></i><span data-i18n="proj_gh_view">GitHub'da Görüntüle</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="fastfetch.html" target="_blank" rel="noopener noreferrer" class="btn inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-lg text-gray-400 text-sm">
+                        <i class="fas fa-eye"></i><span data-i18n="proj_site_view">Sitede Görüntüle</span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="github" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 fade-in">
+                <p class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3">&lt;GitHub /&gt;</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-bright mb-3" data-i18n="gh_title">GitHub Aktivitem</h2>
+                <p class="text-gray-500 max-w-md mx-auto text-sm" data-i18n="gh_desc">Son 12 aylık katkılarım ve commit geçmişim</p>
+            </div>
+            <div class="card p-6 md:p-8 fade-in">
+                <div id="gh-activity" class="gh-calendar flex justify-center"><div class="text-gray-600 text-sm flex items-center gap-2"><i class="fas fa-spinner fa-spin"></i><span data-i18n="loading">Yükleniyor...</span></div></div>
+                <div id="gh-stats" class="mt-5 pt-5 border-t border-[var(--border)] grid grid-cols-3 gap-4 text-center">
+                    <div><p class="text-2xl font-bold text-bright" id="gh-repos">-</p><p class="text-xs text-gray-600 mt-1">Repo</p></div>
+                    <div><p class="text-2xl font-bold text-bright" id="gh-stars">-</p><p class="text-xs text-gray-600 mt-1" data-i18n="gh_stars">Toplam Star</p></div>
+                    <div><p class="text-2xl font-bold text-bright" id="gh-followers">-</p><p class="text-xs text-gray-600 mt-1" data-i18n="gh_followers">Takipçi</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Masaüstü -->
+    <section id="masaustu" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 fade-in">
+                <p class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3" data-i18n="desk_tag">&lt;Masaüstü /&gt;</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-bright mb-3" data-i18n="desk_title">Masaüstü Görüntülerim</h2>
+                <p class="text-gray-500 max-w-md mx-auto text-sm" data-i18n="desk_desc">Çalışma ortamım ve masaüstü düzenim</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="card p-4 fade-in group overflow-hidden"><img src="./desktop1.png" alt="Desktop 1" class="desktop-img w-full h-auto rounded-lg border border-[var(--border)] object-cover"></div>
+                <div class="card p-4 fade-in group overflow-hidden" style="transition-delay:0.1s"><img src="./desktop2.png" alt="Desktop 2" class="desktop-img w-full h-auto rounded-lg border border-[var(--border)] object-cover"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim -->
+    <section id="iletisim" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-14 fade-in">
+                <p class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3" data-i18n="contact_tag">&lt;İletişim /&gt;</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-bright mb-3" data-i18n="contact_title">İletişime Geç</h2>
+            </div>
+            <div class="card p-8 fade-in">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-md mx-auto">
+                    <a href="https://github.com/Elyntr47" target="_blank" rel="noopener noreferrer" class="group flex flex-col items-center gap-3 p-5 rounded-lg hover:bg-white/[0.02] transition-all">
+                        <div class="icon-box w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center"><i class="fab fa-github text-xl text-gray-400 group-hover:text-gray-200 transition-colors"></i></div>
+                        <div class="text-center"><p class="text-sm font-medium text-gray-400 group-hover:text-gray-200 transition-colors">GitHub</p><p class="text-xs text-gray-600 mt-1">@Elyntr47</p></div>
+                    </a>
+                    <a href="mailto:sayarenes9@proton.me" class="group flex flex-col items-center gap-3 p-5 rounded-lg hover:bg-white/[0.02] transition-all">
+                        <div class="icon-box w-12 h-12 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-light)] flex items-center justify-center"><i class="fas fa-envelope text-xl text-gray-400 group-hover:text-gray-200 transition-colors"></i></div>
+                        <div class="text-center"><p class="text-sm font-medium text-gray-400 group-hover:text-gray-200 transition-colors" data-i18n="contact_email">E-posta</p><p class="text-xs text-gray-600 mt-1">sayarenes9@proton.me</p></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay"><span class="lightbox-close">&times;</span><img id="lightbox-img" src="" alt="Preview"></div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Footer -->
+    <footer class="py-6 px-6 border-t border-[var(--border)]">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            <span class="text-xs text-gray-600">&copy; 2026 Enes Sayar. <span data-i18n="footer_built">Tarafından geliştirildi.</span></span>
+            <div class="flex items-center gap-4">
+                <a href="https://github.com/Elyntr47" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-400 transition-colors"><i class="fab fa-github text-sm"></i></a>
+                <a href="mailto:sayarenes9@proton.me" class="text-gray-600 hover:text-gray-400 transition-colors"><i class="fas fa-envelope text-sm"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ===== Translations ===== */
+        const translations = {
+            tr: {
+                nav_home:'Ana Sayfa', nav_skills:'Yetenekler', nav_projects:'Projeler', nav_desktop:'Masaüstü', nav_contact:'İletişim',
+                hero_hello:'Merhaba, ben', hero_desc:'Teknolojiye, açık kaynak dünyasına, sistem yapılandırmalarına ve yeni nesil yazılımlara tutkuyla bağlı biriyim. Yeni teknolojileri keşfetmeyi, projeler üretmeyi ve dijital dünyada çözümler geliştirmeyi seviyorum.',
+                hero_btn1:'Projelerime Göz At', hero_btn2:'İletişime Geç',
+                typing:['Teknoloji Meraklısı','Geliştirici','Açık Kaynak Hayranı','Sistem Yapılandırma Uzmanı','IoT Meraklısı'],
+                skills_tag:'<Yetenekler />', skills_title:'Yeteneklerim & İlgi Alanlarım', skills_desc:'Teknolojinin farklı dallarında edindiğim deneyimler',
+                skill_os_title:'İşletim Sistemleri & Sistem', skill_os_desc:'GNU/Linux yapılandırmaları ve sunucu yönetimi üzerine yoğunlaşıyorum.',
+                skill_dev_title:'Geliştirme & Web', skill_dev_desc:'Modern web teknolojileri ve programlama dilleriyle projeler üretiyorum.',
+                skill_iot_title:'Donanım & IoT', skill_iot_desc:'Microcontroller projeleri ile ESP32, Arduino ve Raspberry Pi üzerinde uygulamalar geliştiriyorum.',
+                skill_net_title:'Ağ & Güvenlik', skill_net_desc:'Temel ağ analizi, güvenlik araçları ve DNS sistemleri konularında bilgi sahibiyim.',
+                tag_net:'Ağ Analizi', tag_sec:'Güvenlik', short_net:'Ağ', short_sec:'Güvenlik',
+                proj_tag:'<Projeler />', proj_title:'Projelerim', proj_desc:'Geliştirdiğim ve üzerinde çalıştığım açık kaynak projeler',
+                proj_desc1:'ESP32 tabanlı kablosuz ağ tarayıcı. 0.96" OLED ekran üzerinde WiFi ağlarını tarar, sinyal gücünü gösterir. BOOT butonu ile tek tuşla menü navigasyonu, otomatik ivmelenmeli scroll ve captive portal desteği sunar.',
+                proj_github:"GitHub'da İncele",
+                proj_desc2:'CachyOS kurulumundan sonra yapılması gereken temel ayarlar ve optimizasyonlar. AUR, Flathub, Zapret, Fastfetch ve gaming kurulumları için adım adım rehber.',
+                proj_guide:'Rehberi İncele',
+                proj_desc3:'CachyOS için özel olarak tasarlanmış fastfetch yapılandırması. Renkli logo, özelleştirilmiş düzen ve terminalde şık sistem bilgisi gösterimi. Tek dosya ile kurulabilir.',
+                proj_gh_view:"GitHub'da Görüntüle", proj_site_view:'Sitede Görüntüle',
+                gh_title:'GitHub Aktivitem', gh_desc:'Son 12 aylık katkılarım ve commit geçmişim', gh_stars:'Toplam Star', gh_followers:'Takipçi',
+                desk_tag:'<Masaüstü />', desk_title:'Masaüstü Görüntülerim', desk_desc:'Çalışma ortamım ve masaüstü düzenim',
+                contact_tag:'<İletişim />', contact_title:'İletişime Geç',
+                contact_email:'E-posta', footer_built:'Tarafından geliştirildi.', loading:'Yükleniyor...'
+            },
+            en: {
+                nav_home:'Home', nav_skills:'Skills', nav_projects:'Projects', nav_desktop:'Desktop', nav_contact:'Contact',
+                hero_hello:"Hello, I'm", hero_desc:'I am passionate about technology, open source, system configurations, and next-gen software. I love discovering new technologies, building projects, and developing solutions in the digital world.',
+                hero_btn1:'View My Projects', hero_btn2:'Get In Touch',
+                typing:['Tech Enthusiast','Developer','Open Source Fan','System Config Expert','IoT Enthusiast'],
+                skills_tag:'<Skills />', skills_title:'My Skills & Interests', skills_desc:'Experiences I have gained in various fields of technology',
+                skill_os_title:'Operating Systems & Systems', skill_os_desc:'I focus on GNU/Linux configurations and server management.',
+                skill_dev_title:'Development & Web', skill_dev_desc:'I build projects with modern web technologies and programming languages.',
+                skill_iot_title:'Hardware & IoT', skill_iot_desc:'I develop applications on ESP32, Arduino and Raspberry Pi with microcontroller projects.',
+                skill_net_title:'Networking & Security', skill_net_desc:'I have knowledge in network analysis, security tools, and DNS systems.',
+                tag_net:'Network Analysis', tag_sec:'Security', short_net:'Network', short_sec:'Security',
+                proj_tag:'<Projects />', proj_title:'My Projects', proj_desc:'Open source projects I have developed and worked on',
+                proj_desc1:'ESP32-based wireless network scanner. Scans WiFi networks on a 0.96" OLED screen, displays signal strength. Features one-button menu navigation via BOOT button, auto-accelerating scroll, and captive portal support.',
+                proj_github:'View on GitHub',
+                proj_desc2:'Essential settings and optimizations after installing CachyOS. A step-by-step guide for AUR, Flathub, Zapret, Fastfetch and gaming setup.',
+                proj_guide:'View Guide',
+                proj_desc3:'A customized fastfetch configuration designed for CachyOS. Colorful logo, custom layout and stylish system info display in the terminal. Installable with a single file.',
+                proj_gh_view:'View on GitHub', proj_site_view:'View on Site',
+                gh_title:'My GitHub Activity', gh_desc:'My contributions and commit history over the last 12 months', gh_stars:'Total Stars', gh_followers:'Followers',
+                desk_tag:'<Desktop />', desk_title:'My Desktop Screenshots', desk_desc:'My workspace and desktop setup',
+                contact_tag:'<Contact />', contact_title:'Get In Touch',
+                contact_email:'Email', footer_built:'Built by.', loading:'Loading...'
+            },
+            ar: {
+                nav_home:'الرئيسية', nav_skills:'المهارات', nav_projects:'المشاريع', nav_desktop:'سطح المكتب', nav_contact:'التواصل',
+                hero_hello:'مرحباً، أنا', hero_desc:'أنا شغوف بالتكنولوجيا والمصادر المفتوحة وتكوينات النظام والبرامج من الجيل الجديد. أحب اكتشاف التقنيات الجديدة وبناء المشاريع وتطوير الحلول في العالم الرقمي.',
+                hero_btn1:'شاهد مشاريعي', hero_btn2:'تواصل معي',
+                typing:['متحمس للتكنولوجيا','مطور','معجب بالمصادر المفتوحة','خبير في تكوين النظام','متحمس لـ IoT'],
+                skills_tag:'</المهارات>', skills_title:'مهاراتي واهتماماتي', skills_desc:'الخبرات التي اكتسبتها في مجالات مختلفة من التكنولوجيا',
+                skill_os_title:'أنظمة التشغيل والأنظمة', skill_os_desc:'أركز على تكوينات جنو/لينكس وإدارة الخوادم.',
+                skill_dev_title:'التطوير والويب', skill_dev_desc:'أبني المشاريع بتقنيات الويب الحديثة ولغات البرمجة.',
+                skill_iot_title:'الأجهزة وإنترنت الأشياء', skill_iot_desc:'أطور تطبيقات على ESP32 و Arduino و Raspberry Pi مع مشاريع الميكروكونترولر.',
+                skill_net_title:'الشبكات والأمان', skill_net_desc:'لدي معرفة في تحليل الشبكات وأدوات الأمان وأنظمة DNS.',
+                tag_net:'تحليل الشبكة', tag_sec:'الأمان', short_net:'شبكة', short_sec:'أمان',
+                proj_tag:'</المشاريع>', proj_title:'مشاريعي', proj_desc:'المشاريع مفتوحة المصدر التي طورتها وعملت عليها',
+                proj_desc1:'ماسح شبكات لاسلكي قائم على ESP32. يفحص شبكات WiFi على شاشة OLED بحجم 0.96 بوصة ويعرض قوة الإشارة. يتميز بتنقل قائمة بضغطة زر واحدة عبر زر BOOT وتمرير متسارع تلقائياً ودعم بوابة الاقتحام.',
+                proj_github:'عرض على GitHub',
+                proj_desc2:'الإعدادات الأساسية والتحسينات بعد تثبيت CachyOS. دليل خطوة بخطوة لإعداد AUR و Flathub و Zapret و Fastfetch والألعاب.',
+                proj_guide:'عرض الدليل',
+                proj_desc3:'إعداد fastfetch مخصص مصمم لـ CachyOS. شعار ملون وتخطيط مخصص وعرض أنيق لمعلومات النظام في الطرفية. يمكن تثبيته بملف واحد.',
+                proj_gh_view:'عرض على GitHub', proj_site_view:'عرض على الموقع',
+                gh_title:'نشاط GitHub الخاص بي', gh_desc:'مساهماتي وسجل الالتزامات خلال آخر 12 شهراً', gh_stars:'إجمالي النجوم', gh_followers:'المتابعون',
+                desk_tag:'</سطح المكتب>', desk_title:'لقطات شاشة سطح المكتب', desk_desc:'مساحة عملي وإعداد سطح المكتب',
+                contact_tag:'</التواصل>', contact_title:'تواصل معي',
+                contact_email:'البريد الإلكتروني', footer_built:'تم التطوير بواسطة.', loading:'جاري التحميل...'
+            },
+            es: {
+                nav_home:'Inicio', nav_skills:'Habilidades', nav_projects:'Proyectos', nav_desktop:'Escritorio', nav_contact:'Contacto',
+                hero_hello:'Hola, soy', hero_desc:'Soy apasionado por la tecnología, el código abierto, las configuraciones de sistemas y el software de nueva generación. Me encanta descubrir nuevas tecnologías, crear proyectos y desarrollar soluciones en el mundo digital.',
+                hero_btn1:'Ver Mis Proyectos', hero_btn2:'Contactar',
+                typing:['Entusiasta de la Tech','Desarrollador','Fan del Código Abierto','Experto en Configuración de Sistemas','Entusiasta de IoT'],
+                skills_tag:'<Habilidades />', skills_title:'Mis Habilidades e Intereses', skills_desc:'Experiencias que he adquirido en diversos campos de la tecnología',
+                skill_os_title:'Sistemas Operativos y Sistemas', skill_os_desc:'Me enfoco en configuraciones GNU/Linux y administración de servidores.',
+                skill_dev_title:'Desarrollo y Web', skill_dev_desc:'Creo proyectos con tecnologías web modernas y lenguajes de programación.',
+                skill_iot_title:'Hardware e IoT', skill_iot_desc:'Desarrollo aplicaciones en ESP32, Arduino y Raspberry Pi con proyectos de microcontroladores.',
+                skill_net_title:'Redes y Seguridad', skill_net_desc:'Tengo conocimientos en análisis de redes, herramientas de seguridad y sistemas DNS.',
+                tag_net:'Análisis de Red', tag_sec:'Seguridad', short_net:'Red', short_sec:'Seguridad',
+                proj_tag:'<Proyectos />', proj_title:'Mis Proyectos', proj_desc:'Proyectos de código abierto que he desarrollado y en los que he trabajado',
+                proj_desc1:'Escáner de redes inalámbricas basado en ESP32. Escanea redes WiFi en una pantalla OLED de 0.96" y muestra la intensidad de la señal. Cuenta con navegación de menú con un solo botón, scroll automático y soporte de portal cautivo.',
+                proj_github:'Ver en GitHub',
+                proj_desc2:'Configuraciones esenciales y optimizaciones después de instalar CachyOS. Una guía paso a paso para AUR, Flathub, Zapret, Fastfetch y configuración de gaming.',
+                proj_guide:'Ver Guía',
+                proj_desc3:'Una configuración de fastfetch personalizada diseñada para CachyOS. Logo colorido, diseño personalizado y una elegante muestra de info del sistema en la terminal. Instalable con un solo archivo.',
+                proj_gh_view:'Ver en GitHub', proj_site_view:'Ver en el Sitio',
+                gh_title:'Mi Actividad en GitHub', gh_desc:'Mis contribuciones y historial de commits en los últimos 12 meses', gh_stars:'Estrellas Totales', gh_followers:'Seguidores',
+                desk_tag:'<Escritorio />', desk_title:'Mis Capturas de Escritorio', desk_desc:'Mi espacio de trabajo y configuración del escritorio',
+                contact_tag:'<Contacto />', contact_title:'Contactar',
+                contact_email:'Email', footer_built:'Desarrollado por.', loading:'Cargando...'
+            }
+        };
+
+        /* ===== Language System ===== */
+        let currentLang = localStorage.getItem('lang') || 'tr';
+        const langBtn = document.getElementById('lang-btn');
+        const langMenu = document.getElementById('lang-menu');
+        const langOptions = document.querySelectorAll('.lang-option');
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            langOptions.forEach(opt => { opt.classList.toggle('active', opt.dataset.lang === lang); });
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.textContent = translations[lang][key];
+            });
+            document.title = lang === 'tr' ? 'Enes Sayar | Teknoloji Meraklısı & Geliştirici' :
+                             lang === 'en' ? 'Enes Sayar | Tech Enthusiast & Developer' :
+                             lang === 'ar' ? 'ines Sayar | متحمس للتكنولوجيا ومطور' :
+                             'Enes Sayar | Entusiasta Tech & Desarrollador';
+            restartTyping();
+        }
+
+        langBtn.addEventListener('click', (e) => { e.stopPropagation(); langMenu.classList.toggle('open'); });
+        langOptions.forEach(opt => { opt.addEventListener('click', () => { setLang(opt.dataset.lang); langMenu.classList.remove('open'); }); });
+        document.addEventListener('click', () => { langMenu.classList.remove('open'); });
+
+        /* ===== Theme Toggle ===== */
+        const htmlEl = document.documentElement;
+        const themeToggle = document.getElementById('theme-toggle');
+        if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+        themeToggle.addEventListener('click', () => {
+            htmlEl.classList.toggle('light');
+            localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+        });
+
+        /* ===== Typing Effect ===== */
+        let titleIndex = 0, charIndex = 0, isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+        let typingTimeout;
+        function typeEffect() {
+            const titles = translations[currentLang].typing;
+            const currentTitle = titles[titleIndex];
+            if (isDeleting) { typingElement.textContent = currentTitle.substring(0, charIndex - 1); charIndex--; }
+            else { typingElement.textContent = currentTitle.substring(0, charIndex + 1); charIndex++; }
+            let typeSpeed = isDeleting ? 40 : 80;
+            if (!isDeleting && charIndex === currentTitle.length) { typeSpeed = 2000; isDeleting = true; }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; titleIndex = (titleIndex + 1) % titles.length; typeSpeed = 400; }
+            typingTimeout = setTimeout(typeEffect, typeSpeed);
+        }
+        function restartTyping() {
+            clearTimeout(typingTimeout);
+            titleIndex = 0; charIndex = 0; isDeleting = false;
+            typingElement.textContent = '';
+            typeEffect();
+        }
+        typeEffect();
+
+        /* ===== Fade-in ===== */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        /* ===== Scroll Progress ===== */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight * 100) + '%' : '0%';
+        });
+
+        /* ===== Navbar ===== */
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const dark = !htmlEl.classList.contains('light');
+            if (window.scrollY > 50) {
+                navbar.style.background = dark ? 'rgba(13,13,13,0.85)' : 'rgba(245,245,245,0.85)';
+                navbar.style.backdropFilter = 'blur(12px)';
+                navbar.style.borderBottom = '1px solid ' + (dark ? '#1a1a1a' : '#e0e0e0');
+            } else { navbar.style.background=''; navbar.style.backdropFilter=''; navbar.style.borderBottom=''; }
+        });
+
+        /* ===== Mobile Menu ===== */
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileClose = document.getElementById('mobile-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => { mobileMenu.classList.remove('open'); document.body.style.overflow=''; }));
+        mobileToggle.addEventListener('click', () => { mobileMenu.classList.add('open'); document.body.style.overflow='hidden'; });
+        mobileClose.addEventListener('click', () => { mobileMenu.classList.remove('open'); document.body.style.overflow=''; });
+
+        /* ===== Active Nav ===== */
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+            navLinks.forEach(l => {
+                l.classList.remove('text-gray-300'); l.classList.add('text-gray-500');
+                if (l.getAttribute('href') === '#' + current) { l.classList.remove('text-gray-500'); l.classList.add('text-gray-300'); }
+            });
+        });
+
+        /* ===== GitHub ===== */
+        fetch('https://api.github.com/repos/Elyntr47/ESP32-W-F-SCAN')
+            .then(r => r.json()).then(d => { const el = document.getElementById('star-count'); if (el && d.stargazers_count !== undefined) el.querySelector('span').textContent = d.stargazers_count + ' Star'; })
+            .catch(() => { const el = document.getElementById('star-count'); if (el) el.querySelector('span').textContent = '0 Star'; });
+
+        fetch('https://github.com/Elyntr47').then(r => r.text()).then(h => {
+            const doc = new DOMParser().parseFromString(h, 'text/html');
+            const svg = doc.querySelector('.js-calendar-graph-svg');
+            if (svg) { svg.setAttribute('width','720'); svg.setAttribute('height','112'); document.getElementById('gh-activity').innerHTML=''; document.getElementById('gh-activity').appendChild(svg); }
+            else { document.getElementById('gh-activity').innerHTML = '<img src="https://ghchart.rshah.org/Elyntr47" alt="GitHub Activity" class="w-full max-w-2xl">'; }
+        }).catch(() => { document.getElementById('gh-activity').innerHTML = '<img src="https://ghchart.rshah.org/Elyntr47" alt="GitHub Activity" class="w-full max-w-2xl">'; });
+
+        fetch('https://api.github.com/users/Elyntr47').then(r => r.json()).then(d => {
+            document.getElementById('gh-repos').textContent = d.public_repos || '0';
+            document.getElementById('gh-followers').textContent = d.followers || '0';
+            return fetch('https://api.github.com/users/Elyntr47/repos?per_page=100');
+        }).then(r => r.json()).then(repos => {
+            document.getElementById('gh-stars').textContent = repos.reduce((s,r) => s + (r.stargazers_count||0), 0);
+        }).catch(() => { ['gh-repos','gh-stars','gh-followers'].forEach(id => { document.getElementById(id).textContent='?'; }); });
+
+        /* ===== Lightbox ===== */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        document.querySelectorAll('.desktop-img').forEach(img => {
+            img.addEventListener('click', () => { lightboxImg.src=img.src; lightbox.classList.add('active'); document.body.style.overflow='hidden'; });
+        });
+        lightbox.addEventListener('click', e => { if (e.target!==lightboxImg) { lightbox.classList.remove('active'); document.body.style.overflow=''; } });
+        document.addEventListener('keydown', e => { if (e.key==='Escape') { lightbox.classList.remove('active'); document.body.style.overflow=''; } });
+
+        /* ===== Back to Top ===== */
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => { backToTop.classList.toggle('visible', window.scrollY > 400); });
+        backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+        /* ===== Init Language ===== */
+        setLang(currentLang);
+    </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-Fastfetch | Enes Sayar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#0d0d0d;--bg-card:#161616;--bg-elevated:#1a1a1a;--border:#1f1f1f;--border-hover:#2e2e2e;--text:#b0b0b0;--text-bright:#d4d4d4;--muted:#666}
+        html.light{--bg:#f5f5f5;--bg-card:#fff;--bg-elevated:#eee;--border:#e0e0e0;--border-hover:#ccc;--text:#555;--text-bright:#222;--muted:#999}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+        .nav-in{max-width:64rem;margin:0 auto;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+        .nav-name{font-weight:600;color:var(--text-bright);font-family:'JetBrains Mono',monospace}
+        .nav-actions{display:flex;align-items:center;gap:10px}
+        .icon-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+        .icon-btn:hover{border-color:var(--border-hover);color:var(--text-bright)}
+        .main{max-width:64rem;margin:0 auto;padding:6rem 1.5rem 4rem}
+        .head{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+        .back{display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;font-size:14px;border:1px solid var(--border);padding:7px 14px;border-radius:8px;transition:all .25s}
+        .back:hover{border-color:var(--border-hover);color:var(--text-bright)}
+        h1{color:var(--text-bright);font-size:26px;font-weight:700}
+        .img-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1rem;transition:border-color .3s}
+        .img-wrap:hover{border-color:var(--border-hover)}
+        .img-wrap img{width:100%;height:auto;border-radius:10px;display:block}
+        .dl-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;flex-wrap:wrap}
+        .dl-info{font-size:13px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+        .dl-btn{display:inline-flex;align-items:center;gap:9px;background:var(--bg-elevated);border:1px solid var(--border);color:var(--text);padding:11px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:500;transition:all .25s;cursor:pointer}
+        .dl-btn:hover{border-color:#4ade80;color:#4ade80;background:rgba(74,222,128,.06)}
+        .small{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+        @media (max-width:640px){h1{font-size:20px}}
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-in">
+            <a href="index.html" class="nav-name">&lt;ES /&gt;</a>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn"><i class="fas fa-sun icon-sun"></i><i class="fas fa-moon icon-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="head">
+            <a href="index.html#projeler" class="back"><i class="fas fa-arrow-left"></i> Geri Dön</a>
+            <h1>My-Fastfetch</h1>
+        </div>
+
+        <div class="img-wrap">
+            <img src="./fastfetch1.jpg" alt="My-Fastfetch Terminal Görünümü">
+            <div class="dl-row">
+                <div class="dl-info">
+                    <i class="fab fa-linux"></i> my-fastfetch.json &mdash; CachyOS config
+                </div>
+                <button id="dl-btn" class="dl-btn">
+                    <i class="fas fa-download"></i> İndir
+                </button>
+            </div>
+            <p class="small" id="dl-hint">Terminalde kullanmak için: <code>cd ~/.config/fastfetch &amp;&amp; mv ~/İndirilenler/my-fastfetch.json config.jsonc</code></p>
+        </div>
+    </main>
+
+    <script>
+        const htmlEl = document.documentElement;
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            htmlEl.classList.toggle('light');
+            localStorage.setItem('theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
+        });
+        if (localStorage.getItem('theme') === 'light') htmlEl.classList.add('light');
+
+        const FFJSON = `{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "builtin",
+        "source": "cachyos",
+        "color": {
+            "1": "1;31",
+            "2": "1;33",
+            "3": "1;32",
+            "4": "1;36",
+            "5": "1;34",
+            "6": "1;35",
+            "7": "1;91",
+            "8": "1;93",
+            "9": "1;96"
+        },
+        "padding": {
+            "top": 2,
+            "right": 6
+        }
+    },
+    "display": {
+        "separator": " • "
+    },
+    "modules": [
+        "break",
+        "break",
+        {
+            "type": "title",
+            "color": {
+                "user": "1;32",
+                "at": "37",
+                "host": "1;32"
+            }
+        },
+        "break",
+        {
+            "type": "os",
+            "key": "\uf151 distribution  ",
+            "keyColor": "1;33"
+        },
+        {
+            "type": "kernel",
+            "key": "\uf13d linux kernel   ",
+            "keyColor": "1;33"
+        },
+        {
+            "type": "uptime",
+            "key": "\uf150 uptime         ",
+            "keyColor": "1;33"
+        },
+        {
+            "type": "packages",
+            "key": "\uf0d6 packages       ",
+            "keyColor": "1;33",
+            "disabled": []
+        },
+        {
+            "type": "shell",
+            "key": "\uf0b7 unix shell      ",
+            "keyColor": "1;33"
+        },
+        {
+            "type": "terminal",
+            "key": "\uf0cd terminal        ",
+            "keyColor": "1;33"
+        },
+        {
+            "type": "wm",
+            "format": "{} ({3})",
+            "key": "\uf6cc window manager  ",
+            "keyColor": "1;33"
+        },
+        "break",
+        {
+            "type": "cpu",
+            "key": "\uf0db cpu             ",
+            "keyColor": "1;36",
+            "showPeCoreCount": true
+        },
+        {
+            "type": "gpu",
+            "key": "\uf0ae gpu             ",
+            "keyColor": "1;36"
+        },
+        {
+            "type": "memory",
+            "key": "\uf0db memory          ",
+            "keyColor": "1;36"
+        },
+        {
+            "type": "disk",
+            "key": "\uf0ca disk (/)        ",
+            "keyColor": "1;36",
+            "folders": "/"
+        },
+        "break",
+        {
+            "type": "localip",
+            "key": "\uf079 local ip        ",
+            "keyColor": "1;35"
+        },
+        {
+            "type": "publicip",
+            "key": "\uf060 public ip       ",
+            "keyColor": "1;35"
+        },
+        "break",
+        {
+            "type": "colors",
+            "symbol": "circle"
+        },
+        "break",
+        "break"
+    ]
+}`;
+
+        const dlBtn = document.getElementById('dl-btn');
+        const dlHint = document.getElementById('dl-hint');
+        dlBtn.addEventListener('click', () => {
+            try {
+                const blob = new Blob([FFJSON], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'my-fastfetch.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                dlHint.textContent = 'İndirildi! Dosyayı ~/.config/fastfetch/ klasörüne taşıyın.';
+            } catch (e) {
+                dlHint.textContent = 'İndirme başarısız oldu: ' + e.message;
+            }
+        });
+    </script>
+</body>
+</html>
